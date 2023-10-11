@@ -1,0 +1,238 @@
+{
+	"info": {
+		"_postman_id": "044e3954-b495-4043-b712-db6e492edeb7",
+		"name": "STORE",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28680186"
+	},
+	"item": [
+		{
+			"name": "Place an order for a pet",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()",
+							"pm.environment.set(\"orderId\", jsonData.id)",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response body is valid JSON\", function () {",
+							"    pm.response.to.be.json;",
+							"});",
+							"",
+							"pm.test(\"Check if response contains required fields\", function () {",
+							"    const responseBody = pm.response.json();",
+							"    pm.expect(responseBody.id).to.not.be.undefined;",
+							"    pm.expect(responseBody.petId).to.not.be.undefined;",
+							"    pm.expect(responseBody.status).to.not.be.undefined;",
+							"    pm.expect(responseBody.shipDate).to.not.be.undefined;",
+							"    pm.expect(responseBody.complete).to.not.be.false;",
+							"    pm.expect(responseBody.quantity).to.not.be.eq(0);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\": 55555555,\n  \"petId\": 2468,\n  \"quantity\": 3,\n  \"shipDate\": \"2023-10-11T05:54:00.317Z\",\n  \"status\": \"placed\",\n  \"complete\": true\n}"
+				},
+				"url": {
+					"raw": "{{url}}/store/order",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"store",
+						"order"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Find purchase order by ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response body is valid JSON\", function () {",
+							"    pm.response.to.be.json;",
+							"});",
+							"",
+							"pm.test(\"Check if response contains required fields\", function () {",
+							"    const responseBody = pm.response.json();",
+							"    pm.expect(responseBody.id).to.not.be.undefined;",
+							"    pm.expect(responseBody.petId).to.not.be.undefined;",
+							"    pm.expect(responseBody.status).to.not.be.undefined;",
+							"    pm.expect(responseBody.shipDate).to.not.be.undefined;",
+							"    pm.expect(responseBody.complete).to.not.be.false;",
+							"    pm.expect(responseBody.quantity).to.not.be.eq(0);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/store/order/{{orderId}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"store",
+						"order",
+						"{{orderId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Returns pet inventories by status",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response body is valid JSON\", function () {",
+							"    pm.response.to.be.json;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "special_key",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "api_key",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/store/inventory",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"store",
+						"inventory"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete purchase order by ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response body is valid JSON\", function () {",
+							"    pm.response.to.be.json;",
+							"});",
+							"",
+							"pm.test(\"Check if response contains required fields\", function () {",
+							"    const responseBody = pm.response.json();",
+							"    pm.expect(responseBody.code).to.eq(200);",
+							"    pm.expect(responseBody.type).to.not.be.undefined;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "special_key",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "api_key",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/store/order/{{orderId}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"store",
+						"order",
+						"{{orderId}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
